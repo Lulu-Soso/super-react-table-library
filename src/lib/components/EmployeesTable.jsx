@@ -4,14 +4,43 @@ import Search from "./Search";
 import Filter from "./Filter";
 import Paginate from "./Paginate";
 import ShowEntries from "./ShowEntries";
+import usersList from "../../usersData.js"
 
-const EmployeesTable = ({ data, columnsToShow, columnTitles, labelFilterText, labelSearchText }) => {
+const EmployeesTable = ({
+  // data,
+  data = usersList,
+  dataColumns = [
+    "firstName",
+    "lastName",
+    "email",
+    "numberPhone",
+    "birthDate",
+    "address",
+    "zipCode",
+    "country"
+  ],
+  titleColumns = [
+    "First Name",
+    "Last Name",
+    "Email",
+    "Number Phone",
+    "Birth Date",
+    "Address",
+    "Zip Code",
+    "Country"
+  ],
+  labelFilterText = "Filter",
+  labelSearchText = "Search data",
+}) => {
   const [entriesToShow, setEntriesToShow] = useState(10);
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortBy, setSortBy] = useState(columnsToShow[0]);
+  const [sortBy, setSortBy] = useState(dataColumns[0]);
   const [sortOrder, setSortOrder] = useState("asc");
   const [showErrorModal, setShowErrorModal] = useState(false);
+
+   // Utilisation des données par défaut
+  //  const [data, setData] = useState(usersList);
 
   const handleEntriesChange = (e) => {
     setEntriesToShow(+e.target.value);
@@ -33,10 +62,19 @@ const EmployeesTable = ({ data, columnsToShow, columnTitles, labelFilterText, la
   };
 
   const sortedData = data.slice().sort((a, b) => {
-    if (sortBy === null) return 0;
+    if (!sortBy) return 0; // Vérifier si sortBy est défini
+
     const aValue = a[sortBy];
     const bValue = b[sortBy];
-    return sortOrder === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+
+    // Vérifier si aValue et bValue sont définies avant d'appeler localeCompare
+    if (aValue !== undefined && bValue !== undefined) {
+      return sortOrder === "asc"
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    } else {
+      return 0;
+    }
   });
 
   const filteredData = sortedData.filter((employee) => {
@@ -123,14 +161,14 @@ const EmployeesTable = ({ data, columnsToShow, columnTitles, labelFilterText, la
       <table className="employees-table">
         <thead>
           <tr>
-            {columnsToShow.map((column, index) => (
+            {dataColumns.map((column, index) => (
               <th
                 key={column}
                 className={`${sortBy === column ? "sorted-column" : ""}`}
                 onClick={() => handleColumnClick(column)} // Ajoutez l'événement onClick
               >
                 <div className="th-title">
-                  {columnTitles[index]}
+                  {titleColumns[index]}
                   <span className="up-down">
                     <FaCaretUp
                       className={
@@ -154,14 +192,20 @@ const EmployeesTable = ({ data, columnsToShow, columnTitles, labelFilterText, la
         </thead>
         <tbody>
           {filteredData
-            .slice((currentPage - 1) * entriesToShow, currentPage * entriesToShow)
+            .slice(
+              (currentPage - 1) * entriesToShow,
+              currentPage * entriesToShow
+            )
             .map((employee, index) => (
               <tr
                 key={employee.id}
                 className={index % 2 === 0 ? "table-row-even" : "table-row-odd"}
               >
-                {columnsToShow.map((column) => (
-                  <td key={column} className={`${sortBy === column ? "sorted-column" : ""}`}>
+                {dataColumns.map((column) => (
+                  <td
+                    key={column}
+                    className={`${sortBy === column ? "sorted-column" : ""}`}
+                  >
                     {employee[column]}
                   </td>
                 ))}
@@ -177,7 +221,7 @@ const EmployeesTable = ({ data, columnsToShow, columnTitles, labelFilterText, la
       )}
 
       <div className="flex-pagination">
-      <ShowEntries
+        <ShowEntries
           currentPage={currentPage}
           entriesToShow={entriesToShow}
           totalEntries={filteredData.length}

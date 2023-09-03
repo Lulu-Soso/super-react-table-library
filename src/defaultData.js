@@ -1,7 +1,7 @@
 const employees = [
   {
     id: 1,
-    firstNamer: "Jack",
+    firstName: "Jack",
     lastName: "Dupont",
     birthDate: "1974-04-23",
     startDate: "2021-05-24",

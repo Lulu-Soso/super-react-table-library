@@ -1,14 +1,11 @@
 {
-  "name": "my-react-test-lib",
+  "name": "super-react-table-library",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
-    "dist",
-    "README.md",
-    "data.js"
+    "dist"
   ],
-  "repository": {    "type": "git",    "url": "URL_OF_YOUR_REPOSITORY"  },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.22.10",
     "@babel/preset-env": "^7.22.14",
@@ -16,7 +13,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.0.0",
     "babel-preset-react-app": "^10.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -34,7 +31,7 @@
     "build-examples": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "rd /s /q dist && set NODE_ENV=production && babel src/lib --out-dir ./dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "build": "rd /s /q dist && set NODE_ENV=production && babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
   },
   "eslintConfig": {
     "extends": [
@@ -57,7 +54,7 @@
   "dependencies": {
     "react-icons": "^4.10.1"
   },
-  "description": "A library of React components created using [`create-component-lib`](https://www.npmjs.com/package/create-component-lib).",
+  "description": "A powerful and customizable React table library for displaying and managing tabular data with ease.",
   "author": "Lucas Prea",
   "license": "ISC"
 }

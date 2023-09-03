@@ -1,7 +1,40 @@
 .pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  button {
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    border: none;
+    background-color: #d7ddbb;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #93ad18;
+      color: #ffffff;
+    }
+  }
+
+  button.current-page {
+    font-weight: bold;
+    background-color: #5a6f08;
+    color: white;
+
+    &:hover {
+      background-color: #93ad18;
+    }
+  }
+
   button[disabled] {
     background-color: lightgray;
     color: gray;
-    cursor: not-allowed;
+    cursor: default;
+  }
+
+  .previous-next {
+    background-color: #5a6f08;
+    color: #ffffff;
   }
 }
