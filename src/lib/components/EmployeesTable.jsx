@@ -14,7 +14,7 @@ const EmployeesTable = ({
     "lastName",
     "email",
     "numberPhone",
-    "birthDate",
+    "dateOfBirth",
     "address",
     "zipCode",
     "country"
@@ -24,7 +24,7 @@ const EmployeesTable = ({
     "Last Name",
     "Email",
     "Number Phone",
-    "Birth Date",
+    "Date of Birth",
     "Address",
     "Zip Code",
     "Country"
